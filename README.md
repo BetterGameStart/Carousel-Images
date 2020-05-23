@@ -42,9 +42,9 @@ npm start
 ```
 
 ## CRUD Operations
-| HTTP Verb |           Endpoint          |            Action            |
-|-----------| --------------------------- | ---------------------------- |
-| **POST**  |   /post                     |  CREATE a new item into DB   |
-| **GET**   |   /carousel/:gameId         |  READ data and return data   |
-| **PUT**   |   /put                      |  UPDATE item                 |
-| **DELETE**|   /delete                   |  DELETE item based on ID     |
+| HTTP Verb |           Endpoint          |              Action              |
+|-----------| --------------------------- | -------------------------------- |
+| **POST**  |   /post                     |  CREATE a new item into DB       |
+| **GET**   |   /carousel/:gameId         |  READ data and return data       |
+| **PUT**   |   /put                      |  UPDATE item based on gameTitle  |
+| **DELETE**|   /delete                   |  DELETE item based on gameTitle  |
