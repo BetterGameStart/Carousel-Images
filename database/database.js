@@ -12,11 +12,6 @@ db.once('open', () => { console.log('Connected to Database'); });
 
 
 const ImageData = mongoose.model('ImageData', new Schema({
-  gameTitle: String,
-  newPrice: Number,
-  preOwnedPrice: Number,
-  digitalPrice: Number,
-  mainImage: String,
   images: [String],
 }), 'imagedatas');
 

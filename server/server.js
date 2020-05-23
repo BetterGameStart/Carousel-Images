@@ -14,14 +14,7 @@ app.use(express.json());
 // Create
 
 app.post('/post', (req, res) => {
-  let newRecord = {
-    gameTitle: faker.name.title(),
-    newPrice: 59.99,
-    preOwnedPrice: 54.99,
-    digitalPrice: 59.99,
-    mainImage: seed.randomMainImage(),
-    images: seed.randomImages(),
-  }
+  let newRecord = req.body.newRecord;
   db.createNewRecord(newRecord, (err, success) => {
     if (err) {
       res.send(404);
@@ -47,16 +40,9 @@ app.get('/carousel/:gameId', (req, res) => {
 // Update
 
 app.put('/put', (req, res) => {
-  let newRecord = {
-    gameTitle: faker.name.title(),
-    newPrice: 59.99,
-    preOwnedPrice: 54.99,
-    digitalPrice: 59.99,
-    mainImage: seed.randomMainImage(),
-    images: seed.randomImages(),
-  }
-  let gameTitle = '';
-  db.updateRecord(gameTitle, param, (err, success) => {
+  const newRecord =  req.body.newRecord;
+  const gameTitle = req.body.gameTitle;
+  db.updateRecord(gameTitle, newRecord, (err, success) => {
     if (err) {
       res.send(404);
     } else {
@@ -69,7 +55,7 @@ app.put('/put', (req, res) => {
 // Delete
 
 app.delete('/delete', (req, res) => {
-  const gameTitle = 'game'
+  const gameTitle = req.body.gameTitle;
   db.deleteRecord(gameTitle, (err, success) => {
     if (err) {
       console.log(err);
