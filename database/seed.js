@@ -11,11 +11,6 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', () => {
 
-  const randomMainImage = () => {
-    const random = Math.floor(Math.random() * Math.floor(17) + 1);
-    return `https://better-game-start.s3.us-east-2.amazonaws.com/Recommended+Carousel+Images/${random}-170x170.jpg`;
-  };
-
   const randomImages = () => {
     const result = [];
     for (let i = 0; i < 5; i++) {
@@ -29,11 +24,6 @@ db.once('open', () => {
     const allData = [];
     for (let i = 0; i < entrys; i++) {
       const data = {
-        gameTitle: faker.name.title(),
-        newPrice: 59.99,
-        preOwnedPrice: 54.99,
-        digitalPrice: 59.99,
-        mainImage: randomMainImage(),
         images: randomImages(),
       };
       allData.push(data);
@@ -61,11 +51,6 @@ db.once('open', () => {
   });
 });
 
-const randomMainImage = () => {
-  const random = Math.floor(Math.random() * Math.floor(17) + 1);
-  return `https://better-game-start.s3.us-east-2.amazonaws.com/Recommended+Carousel+Images/${random}-170x170.jpg`;
-};
-
 const randomImages = () => {
   const result = [];
   for (let i = 0; i < 5; i++) {
@@ -75,5 +60,4 @@ const randomImages = () => {
   return result;
 };
 
-module.exports.randomMainImage = randomMainImage;
 module.exports.randomImages = randomImages;
