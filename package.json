@@ -4,11 +4,12 @@
   "description": "Image Carousel for initial top page and Recommended Section",
   "main": "index.js",
   "scripts": {
-    "build:dev": "webpack -d --watch",
-    "start:dev": "nodemon server/server.js --ignore 'client/' --ignore 'public/'",
-    "start": "node server/server.js",
     "build": "webpack",
-    "seed": "node database/seed.js"
+    "build:dev": "webpack -d --watch",
+    "seed": "node database/seed.js",
+    "seedSDC": "node --max-old-space-size=20000 database/PostgreSQL/seed.js",
+    "start": "node server/server.js",
+    "start:dev": "nodemon server/server.js --ignore 'client/' --ignore 'public/'"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "mongoose": "^5.9.11",
     "pg": "^8.2.1",
     "pg-hstore": "^2.3.3",
+    "pgtools": "^0.3.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
