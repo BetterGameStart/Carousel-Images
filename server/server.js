@@ -1,11 +1,20 @@
+const nr = require('newrelic');
 const express = require('express');
-const db = require('../database/database.js');
-const seed = require('../database/seed.js');
-
-const faker = require('faker');
+const { Pool } = require('pg');
+const PASSWORD = require('../passwordIgnore.js');
 
 const app = express();
 const PORT = 3003;
+
+const pool = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'images',
+  password: PASSWORD.PASSWORD,
+  port: 5432
+});
+
+pool.connect();
 
 app.use('/games/:gameId', express.static(`${__dirname}/../public`));
 app.use(express.json());
@@ -14,56 +23,54 @@ app.use(express.json());
 // Create
 
 app.post('/post', (req, res) => {
-  let newRecord = req.body.newRecord;
-  db.createNewRecord(newRecord, (err, success) => {
+  pool.query(`INSERT INTO images VALUES ('${req.body.url}')`, (err, results) => {
     if (err) {
-      res.send(404);
+      res.status(404);
     } else {
-      res.send(200);
+      res.status(200);
     }
-  })
-  res.end();
+    res.end()
+  });
 });
 
 // Read
 
 app.get('/carousel/:gameId', (req, res) => {
-  db.getGameForTopCarousel(req.params.gameId, (err, result) => {
+  pool.query(`SELECT * FROM images WHERE id = ${req.params.gameId}`, (err, results) => {
     if (err) {
-      res.status(404).end();
+      res.status(404);
     } else {
-      res.status(200).send(result);
+      res.status(200);
     }
+    res.end()
   });
+
 });
 
 // Update
 
 app.put('/put', (req, res) => {
-  const newRecord =  req.body.newRecord;
-  const gameTitle = req.body.gameTitle;
-  db.updateRecord(gameTitle, newRecord, (err, success) => {
+  pool.query(`UPDATE images SET image = '${req.body.url}' WHERE id = ${req.body.id}`, (err, results) => {
     if (err) {
-      res.send(404);
+      res.status(404);
     } else {
-      res.send(200);
+      res.status(200);
     }
+    res.end()
   });
-  res.end();
 });
 
 // Delete
 
 app.delete('/delete', (req, res) => {
-  const gameTitle = req.body.gameTitle;
-  db.deleteRecord(gameTitle, (err, success) => {
+  pool.query(`DELETE * FROM images WHERE id = '${req.body.id}'`, (err, results) => {
     if (err) {
-      console.log(err);
-      res.send(err);
+      res.status(404);
     } else {
+      res.status(200);
     }
-  })
-  res.end();
+    res.end()
+  });
 });
 
 app.listen(PORT, () => {
