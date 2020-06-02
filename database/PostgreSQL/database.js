@@ -4,7 +4,7 @@ const PASSWORD = require('../passwordIgnore.js');
 
 const config = {
   user: 'postgres',
-  host: 'localhost',
+  host: 'ec2-100-26-18-228.compute-1.amazonaws.com',
   password: PASSWORD.PASSWORD,
   port: 5432,
 }
@@ -43,7 +43,7 @@ setTimeout( async () => {
   );
 
   const createTable = () => {
-    pool.query('CREATE TABLE images (id serial, image varchar(200))',  (err, res) => {
+    pool.query('CREATE TABLE images (id serial, imageone varchar(52), imagetwo varchar(52), imagethree varchar(52), imagefour varchar(52), imagefive varchar(52))',  (err, res) => {
       if (err) {
         console.log(err);
       } else {

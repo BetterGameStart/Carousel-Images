@@ -1,0 +1,12 @@
+config:
+  target: 'http://ec2-100-26-18-228.compute-1.amazonaws.com:3003'
+  phases:
+    - duration: 60
+      arrivalRate: 10
+      rampTo: 100
+      name: 'test'
+
+scenarios:
+  - flow:
+    - get:
+        url: "/carousel/4"

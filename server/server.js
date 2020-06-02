@@ -1,7 +1,7 @@
 const nr = require('newrelic');
 const express = require('express');
 const { Pool } = require('pg');
-const PASSWORD = require('../passwordIgnore.js');
+const PASSWORD = require('../database/passwordIgnore.js');
 
 const app = express();
 const PORT = 3003;
@@ -40,7 +40,13 @@ app.get('/carousel/:gameId', (req, res) => {
     if (err) {
       res.status(404);
     } else {
-      res.status(200);
+      let images = [];
+      for (let key in results.rows[0]) {
+        if (typeof results.rows[0][key] === 'string') {
+          images.push(results.rows[0][key]);
+        }
+      }
+      res.send({images: images});
     }
     res.end()
   });

@@ -13,7 +13,7 @@ const pool = new Pool({
 pool.connect();
 
 setTimeout(() => {
-  pool.query(`COPY images(image) FROM '${__dirname.slice(0, 130)}data.csv' CSV HEADER`, (err, results) => {
+  pool.query(`COPY images(imageone, imagetwo, imagethree, imagefour, imagefive) FROM '${__dirname.slice(0, 130)}data.csv' CSV HEADER (DELIMITER '|')`, (err, results) => {
     if (err) {
       console.log('This is not working.', err);
     } else {
